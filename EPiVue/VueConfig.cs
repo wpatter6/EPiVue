@@ -1,67 +1,75 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
-using System.Xml;
+using System.Linq;
 
 namespace EPiVue
 {
     public class VueConfig : ConfigurationSection
     {
+        public static VueConfig Settings => ConfigurationManager.GetSection("vueConfig") as VueConfig;
         private VueConfig() { }
 
         [ConfigurationProperty("appUrl")]
-        public VueSettingsString AppUrl
-        {
-            get => (VueSettingsString)this["appUrl"];
-            set => this["appUrl"] = value;
-        }
+        public string AppUrl => this["appUrl"] as string;
 
         [ConfigurationProperty("appPrefix")]
-        public VueSettingsString AppPrefix
-        {
-            get => (VueSettingsString)this["appPrefix"];
-            set => this["appPrefix"] = value;
-        }
+        public string AppPrefix => this["appPrefix"] as string;
 
         [ConfigurationProperty("vueUrl")]
-        public VueSettingsString VueUrl
-        {
-            get => (VueSettingsString)this["vueUrl"];
-            set => this["vueUrl"] = value;
-        }
+        public string VueUrl => this["vueUrl"] as string;
 
         [ConfigurationProperty("components")]
-        public VueSettingsComponents Components
-        {
-            get => (VueSettingsComponents)this["components"];
-            set => this["components"] = value;
-        }
-
-        public static VueConfig GetVueSettings()
-        {
-            return (VueConfig)ConfigurationManager.GetSection("episerver.vue");
-        }
+        [ConfigurationCollection(typeof(string), AddItemName = "component")]
+        public Components ComponentList => this["components"] as Components;
     }
 
-    public class VueSettingsString : ConfigurationElement, IConfigurationSectionHandler
+    public class component : ConfigurationElement
     {
-        public string Value;
-        public object Create(object parent, object configContext, XmlNode section)
-        {
-            Value = section.Value;
-            return section.Value;
-        }
+        [ConfigurationProperty("name", IsRequired = true)]
+        public string Name => this["name"] as string;
     }
 
-    public class VueSettingsComponents : ConfigurationElement, IConfigurationSectionHandler
+    public class Components : ConfigurationElementCollection, IEnumerable<component>
     {
-        public object Create(object parent, object configContext, XmlNode section)
+        public component this[int index]
         {
-            var result = new List<string>();
-            foreach (XmlNode childNode in section.ChildNodes)
+            get => BaseGet(index) as component;
+            set
             {
-                result.Add(childNode.Value);
+                if (BaseGet(index) != null)
+                {
+                    BaseRemoveAt(index);
+                }
+                BaseAdd(index, value);
             }
-            return result;
+        }
+
+        public new component this[string responseString]
+        {
+            get => BaseGet(responseString) as component;
+            set
+            {
+                if (BaseGet(responseString) != null)
+                {
+                    BaseRemoveAt(BaseIndexOf(BaseGet(responseString)));
+                }
+                BaseAdd(value);
+            }
+        }
+
+        protected override ConfigurationElement CreateNewElement()
+        {
+            return new component();
+        }
+
+        protected override object GetElementKey(ConfigurationElement element)
+        {
+            return ((component)element).Name;
+        }
+
+        IEnumerator<component> IEnumerable<component>.GetEnumerator()
+        {
+            return this.BaseGetAllKeys().Select(key => (component)BaseGet(key)).GetEnumerator();
         }
     }
 }

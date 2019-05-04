@@ -3,8 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>EPiVue</RootNamespace>
-    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-    <Version>0.1.3</Version>
+    <Version>0.1.4</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Will Patterson</Authors>
     <Description>Vue.js integration for EPiServer CMS</Description>

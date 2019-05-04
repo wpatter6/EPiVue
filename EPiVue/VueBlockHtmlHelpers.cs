@@ -1,4 +1,5 @@
-﻿using EPiServer.Web.Mvc.Html;
+﻿using System;
+using EPiServer.Web.Mvc.Html;
 using EPiVue.Utilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace EPiVue
 {
     public static class VueBlockHtmlHelpers
     {
-        public static HtmlString RenderVueBlock(this HtmlHelper<VueBlock> helper, IVueBlock vueBlock, string namedSlotTagName = "div")
+        public static HtmlString RenderVueBlock(this HtmlHelper<VueBlock> helper, IVueBlock vueBlock)
         {
             var tagName = vueBlock.VueComponentName.ComponentToTagName();
             var outerElement = new TagBuilder(tagName)
@@ -49,13 +50,54 @@ namespace EPiVue
                     slotTag.MergeAttribute("class", content.CssClass);
                 }
 
-
                 slotTag.MergeAttribute("slot", content.Name);
-                slotTag.InnerHtml += content.Content.ToEditString();
+
+                if (content.Content != null)
+                {
+                    slotTag.InnerHtml += content.Content.ToEditString();
+                }
+
                 outerElement.InnerHtml += slotTag.ToString();
             });
 
             return new HtmlString(outerElement.ToString());
         }
+        public static HtmlString RenderVueScripts(this HtmlHelper helper, VueScriptLocation location)
+        {
+            var vueLink = GetStaticElement(location, VueConfig.Settings.VueUrl);
+            var appLink = GetStaticElement(location, VueConfig.Settings.AppUrl);
+
+            return new HtmlString($"{vueLink}{appLink}");
+        }
+        private static TagBuilder GetStaticElement(VueScriptLocation location, string url)
+        {
+            switch (location)
+            {
+                case VueScriptLocation.Head:
+                    var headTag = new TagBuilder("link");
+                    headTag.MergeAttributes(new Dictionary<string, string>()
+                    {
+                        {"rel", "preload" },
+                        {"as", "script" },
+                        {"href", url }
+                    });
+                    return headTag;
+                case VueScriptLocation.Foot:
+                    var bodyTag = new TagBuilder("script");
+                    bodyTag.MergeAttributes(new Dictionary<string, string>()
+                    {
+                        {"src", url }
+                    });
+                    return bodyTag;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(location), location, null);
+            }
+        }
+    }
+
+    public enum VueScriptLocation
+    {
+        Head,
+        Foot
     }
 }

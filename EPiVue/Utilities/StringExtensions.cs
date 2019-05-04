@@ -42,9 +42,8 @@ namespace EPiVue.Utilities
         public static string ComponentToTagName(this string value)
         {
             if (string.IsNullOrEmpty(value)) return "div";
-            //var vueSettings = VueSettings.GetVueSettings();
-            var prefix = ConfigurationManager.AppSettings["vue:AppPrefix"];
-            return !string.IsNullOrEmpty(prefix) ? $"{prefix}-{value.PascalToKebabCase()}" : value.PascalToKebabCase();
+            var vueSettings = VueConfig.Settings;
+            return !string.IsNullOrEmpty(vueSettings.AppPrefix) ? $"{vueSettings.AppPrefix}-{value.PascalToKebabCase()}" : value.PascalToKebabCase();
 
         }
     }

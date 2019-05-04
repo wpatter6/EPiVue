@@ -10,14 +10,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EPiVue
 {
-    [ContentType(DisplayName = "Vue Component",
+    [ContentType(DisplayName = "Vue component",
         GUID = "58fe24ed-95e4-4c8f-8a27-1a6237146ba3",
         Description = "Block for housing a pre-built vue component.",
         GroupName = SystemTabNames.Content)]
     public class VueBlock : BlockData, IVueBlock
     {
         [Required]
-        [Display(Name = "Component",
+        [Display(Name = "component",
             GroupName = SystemTabNames.Content,
             Description = "The name of the component from the Vue.js project to use in the block.",
             Order = 10)]
