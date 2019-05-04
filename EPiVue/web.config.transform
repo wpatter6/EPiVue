@@ -1,0 +1,9 @@
+﻿<configuration>
+  <configSections>
+    <section name="vueConfig" type="EPiVue.VueConfig, EPiVue" />
+  </configSections>
+  <vueConfig appUrl="" appPrefix="" vueUrl="https://unpkg.com/vue@2.6.10">
+    <components>
+    </components>
+  </vueConfig>
+</configuration>
