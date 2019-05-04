@@ -4,6 +4,7 @@ using EPiVue.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using EPiServer.Core;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Html;
 
@@ -11,7 +12,7 @@ namespace EPiVue
 {
     public static class VueBlockHtmlHelpers
     {
-        public static HtmlString RenderVueBlock(this HtmlHelper<VueBlock> helper, IVueBlock vueBlock)
+        public static HtmlString RenderVueBlock<T>(this HtmlHelper<T> helper, T vueBlock) where T : BlockData, IVueBlock
         {
             var tagName = vueBlock.VueComponentName.ComponentToTagName();
             var outerElement = new TagBuilder(tagName)
