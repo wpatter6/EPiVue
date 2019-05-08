@@ -3,12 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>EPiVue</RootNamespace>
-    <Version>0.2.0</Version>
+    <Version>0.2.1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Will Patterson</Authors>
     <Description>Vue.js integration for EPiServer CMS</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/wpatter6/EPiVue/master/EPiVue.png</PackageIconUrl>
-    <AssemblyVersion>0.2.0.0</AssemblyVersion>
+    <AssemblyVersion>0.2.1.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
