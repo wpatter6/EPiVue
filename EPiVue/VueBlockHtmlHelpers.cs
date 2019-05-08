@@ -10,6 +10,11 @@ namespace EPiVue
 {
     public static class VueBlockHtmlHelpers
     {
+        /// <summary>
+        /// Renders the IVueBlock to a HtmlString which can be used inside an MVC view.
+        /// </summary>
+        /// <param name="vueBlock">The IVueBlock instance to render.</param>
+        /// <returns></returns>
         public static HtmlString RenderBlock(this IVueBlock vueBlock)
         {
             var tagName = vueBlock.VueComponentName.ComponentToTagName();
@@ -54,7 +59,13 @@ namespace EPiVue
 
             return new HtmlString(outerElement.ToString());
         }
-        public static HtmlString RenderVueScripts(this HtmlHelper helper, VueScriptLocation location)
+        /// <summary>
+        /// Renders the script tags using the appUrl and vueUrl values in the application configuration file.
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <param name="location">The location of the script tag.  Use Head to render preload links, Foot to render the actual script tags.</param>
+        /// <returns></returns>
+        public static HtmlString RenderVueScripts(this HtmlHelper helper, VueScriptLocation location = VueScriptLocation.Foot)
         {
             var vueLink = GetStaticElement(location, VueConfig.Settings.VueUrl);
             var appLink = GetStaticElement(location, VueConfig.Settings.AppUrl);
