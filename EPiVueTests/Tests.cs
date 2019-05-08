@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Web.Mvc;
 using EPiServer.Core;
 using EPiVue;
+using EPiVueTests.Models;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -59,9 +60,9 @@ namespace EPiVueTests
             var block = new VueBlock()
             {
                 VueComponentName = "VueTest",
-                VueComponentProps = "{ prop: 'abcd' }",
+                Prop = "abcd",
                 SlotContent = new XhtmlString("<p>Hello</p>"),
-                NamedSlotContents = new List<VueBlockNamedSlotContent>()
+                NamedSlotContents = new List<IVueBlockNamedSlotContent>()
                 {
                     new VueBlockNamedSlotContent
                     {
@@ -71,7 +72,7 @@ namespace EPiVueTests
                 }
             };
 
-            var result = html.RenderVueBlock(block);
+            var result = block.RenderBlock();
             result.Should().BeEquivalentTo(new
             {
                 Value = "<v-app-vue-test prop=\"abcd\"><p>Hello</p><v-app-vue-test-2 slot=\"left-banner\"></v-app-vue-test-2></v-app-vue-test>"

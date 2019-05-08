@@ -1,10 +1,8 @@
 ﻿using System;
-using EPiServer.Web.Mvc.Html;
 using EPiVue.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using EPiServer.Core;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Html;
 
@@ -12,7 +10,7 @@ namespace EPiVue
 {
     public static class VueBlockHtmlHelpers
     {
-        public static HtmlString RenderVueBlock<T>(this HtmlHelper<T> helper, T vueBlock) where T : BlockData, IVueBlock
+        public static HtmlString RenderBlock(this IVueBlock vueBlock)
         {
             var tagName = vueBlock.VueComponentName.ComponentToTagName();
             var outerElement = new TagBuilder(tagName)
@@ -20,12 +18,9 @@ namespace EPiVue
                 InnerHtml = ""
             };
 
-            if (!string.IsNullOrEmpty(vueBlock.VueComponentProps))
+            if (vueBlock.VueComponentProps.Count > 0)
             {
-
-                var propObj = JsonConvert.DeserializeObject<Dictionary<string, object>>(vueBlock.VueComponentProps);
-
-                foreach(var item in propObj)
+                foreach(var item in vueBlock.VueComponentProps)
                 {
                     var attr = item.Key.PascalToKebabCase();
                     if (!(item.Value is string valString))
@@ -38,24 +33,20 @@ namespace EPiVue
                 }
             }
 
-            if (vueBlock.SlotContent != null)
+            if (vueBlock.SlotContentString != null)
             {
-                outerElement.InnerHtml += vueBlock.SlotContent.ToEditString();
+                outerElement.InnerHtml += vueBlock.SlotContentString;
             }
 
             vueBlock.NamedSlotContents?.ToList().ForEach(content =>
             {
                 var slotTag = new TagBuilder(string.IsNullOrEmpty(content.TagName) ? "div" : content.TagName);
-                if (!string.IsNullOrEmpty(content.CssClass))
-                {
-                    slotTag.MergeAttribute("class", content.CssClass);
-                }
 
                 slotTag.MergeAttribute("slot", content.Name);
 
-                if (content.Content != null)
+                if (content.ContentString != null)
                 {
-                    slotTag.InnerHtml += content.Content.ToEditString();
+                    slotTag.InnerHtml += content.ContentString;
                 }
 
                 outerElement.InnerHtml += slotTag.ToString();

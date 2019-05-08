@@ -1,15 +1,12 @@
-﻿using EPiServer.Core;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace EPiVue
 {
     public interface IVueBlock
     {
         string VueComponentName { get; }
-        string VueComponentProps { get; }
-        XhtmlString SlotContent { get; }
-        IList<VueBlockNamedSlotContent> NamedSlotContents { get; }
+        IDictionary<string, object> VueComponentProps { get; }
+        string SlotContentString { get; }
+        IList<IVueBlockNamedSlotContent> NamedSlotContents { get; }
     }
 }

@@ -1,11 +1,9 @@
-﻿using EPiServer.Core;
-
-namespace EPiVue
+﻿namespace EPiVue
 {
     public interface IVueBlockNamedSlotContent
     {
         string Name { get; }
         string TagName { get; }
-        XhtmlString Content { get; }
+        string ContentString { get; }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using EPiServer.Shell.ObjectEditing;
 using System.Collections.Generic;
 using System.Linq;
+using EPiVue;
 
-namespace EPiVue.Utilities
+namespace EPiVueTests.Models
 {
     internal class VueComponentSelectionFactory : ISelectionFactory
     {
