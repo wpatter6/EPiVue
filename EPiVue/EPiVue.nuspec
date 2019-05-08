@@ -1,0 +1,23 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>EPiVue</id>
+    <version>0.2.3</version>
+    <authors>Will Patterson</authors>
+    <!-- The NuGet team authored this package -->
+    <owners>Will Patterson</owners>
+    <!-- The NuGet team owns this package -->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Vue.js integration for EPiServer CMS</description>
+    <tags>EPiServer Vue</tags>
+    <projectUrl>https://github.com/wpatter6/EPiVue</projectUrl>
+    <copyright>2019 Will Patterson</copyright>
+    <license type="expression">MIT</license>
+    <iconUrl>https://raw.githubusercontent.com/wpatter6/EPiVue/master/EPiVue.png</iconUrl>
+  </metadata>
+  <files>
+      <!-- Include Assets as Content -->
+      <file src="Config/web.config.transform" target="Content" />
+      <file src="Config/app.config.transform" target="Content" />
+  </files>
+</package>
