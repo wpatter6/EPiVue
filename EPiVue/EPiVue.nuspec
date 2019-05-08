@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>EPiVue</id>
-    <version>0.2.4</version>
+    <version>0.2.7</version>
     <authors>Will Patterson</authors>
     <!-- The NuGet team authored this package -->
     <owners>Will Patterson</owners>
@@ -21,7 +21,7 @@
       <dependency id="Newtonsoft.Json" version="11.0.2" />
       <dependency id="System.Configuration.ConfigurationManager" version="4.5.0" />
     </dependencies>
-    <repository type="git" url="https://github.com/wpatter6/EPiVue.git" />
+    <repository type="git" url="https://github.com/wpatter6/EPiVue" />
   </metadata>
   <files>
       <!-- Include Assets as Content -->

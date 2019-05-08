@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>EPiVue</RootNamespace>
-    <Version>0.2.3</Version>
+    <Version>0.2.7</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <NuspecFile>EPiVue.nuspec</NuspecFile>
   </PropertyGroup>
@@ -20,6 +20,6 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="nuget pack EPiVue.csproj -OutputDirectory Outputs" />
+    <Exec Command="&quot;C:\Program Files (x86)\NuGet\nuget&quot; pack EPiVue.csproj -OutputDirectory Outputs -Properties Configuration=$(ConfigurationName)" />
   </Target>
 </Project>
