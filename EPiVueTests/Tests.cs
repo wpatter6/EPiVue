@@ -58,14 +58,14 @@ namespace EPiVueTests
         {
             var block = new VueBlock()
             {
-                VueComponentName = "VueTest",
+                ComponentName = "VueTest",
                 Prop = "abcd",
                 SlotContent = new XhtmlString("<p>Hello</p>"),
-                NamedSlotContents = new List<IVueBlockNamedSlotContent>()
+                NamedSlots = new List<IVueBlockNamedSlotContent>()
                 {
                     new VueBlockNamedSlotContent
                     {
-                        Name = "left-banner",
+                        SlotName = "left-banner",
                         TagName = "v-app-vue-test-2"
                     }
                 }

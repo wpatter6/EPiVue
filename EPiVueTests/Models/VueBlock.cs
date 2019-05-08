@@ -28,7 +28,7 @@ namespace EPiVueTests.Models
             Order = 10)]
         [CultureSpecific]
         [SelectOne(SelectionFactoryType = typeof(VueComponentSelectionFactory))]
-        public string VueComponentName { get; set; }
+        public string ComponentName { get; set; }
 
         [Display(Name = "prop",
             GroupName = SystemTabNames.Content,
@@ -38,7 +38,7 @@ namespace EPiVueTests.Models
         public string Prop { get; set; }
 
 
-        public IDictionary<string, object> VueComponentProps => new Dictionary<string, object>()
+        public IDictionary<string, object> Props => new Dictionary<string, object>()
         {
             { "prop", Prop }
         };
@@ -50,7 +50,7 @@ namespace EPiVueTests.Models
         [CultureSpecific]
         public XhtmlString SlotContent { get; set; }
 
-        public string SlotContentString => SlotContent.ToEditString();
+        public string SlotHtml => SlotContent.ToEditString();
 
         [Display(Name = "Named Content",
             GroupName = SystemTabNames.Content,
@@ -58,7 +58,7 @@ namespace EPiVueTests.Models
             Order = 40)]
         [CultureSpecific]
         [EditorDescriptor(EditorDescriptorType = typeof(CollectionEditorDescriptor<VueBlockNamedSlotContent>))]
-        public IList<IVueBlockNamedSlotContent> NamedSlotContents { get; set; }
+        public IList<IVueBlockNamedSlotContent> NamedSlots { get; set; }
 
     }
 }

@@ -10,12 +10,12 @@ namespace EPiVueTests.Models
 {
     internal class VueBlockNamedSlotContent : IVueBlockNamedSlotContent
     {
-        public string Name { get; set; }
+        public string SlotName { get; set; }
 
         public string TagName { get; set; }
 
         public XhtmlString Content { get; set; }
 
-        public string ContentString => Content != null ? Content.ToEditString() : string.Empty;
+        public string ContentHtml => Content != null ? Content.ToEditString() : string.Empty;
     }
 }

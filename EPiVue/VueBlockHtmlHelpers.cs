@@ -17,15 +17,15 @@ namespace EPiVue
         /// <returns></returns>
         public static HtmlString RenderBlock(this IVueBlock vueBlock)
         {
-            var tagName = vueBlock.VueComponentName.ComponentToTagName();
+            var tagName = vueBlock.ComponentName.ComponentToTagName();
             var outerElement = new TagBuilder(tagName)
             {
                 InnerHtml = ""
             };
 
-            if (vueBlock.VueComponentProps.Count > 0)
+            if (vueBlock.Props.Count > 0)
             {
-                foreach(var item in vueBlock.VueComponentProps)
+                foreach(var item in vueBlock.Props)
                 {
                     var attr = item.Key.PascalToKebabCase();
                     if (!(item.Value is string valString))
@@ -38,20 +38,20 @@ namespace EPiVue
                 }
             }
 
-            if (vueBlock.SlotContentString != null)
+            if (vueBlock.SlotHtml != null)
             {
-                outerElement.InnerHtml += vueBlock.SlotContentString;
+                outerElement.InnerHtml += vueBlock.SlotHtml;
             }
 
-            vueBlock.NamedSlotContents?.ToList().ForEach(content =>
+            vueBlock.NamedSlots?.ToList().ForEach(content =>
             {
                 var slotTag = new TagBuilder(string.IsNullOrEmpty(content.TagName) ? "div" : content.TagName);
 
-                slotTag.MergeAttribute("slot", content.Name);
+                slotTag.MergeAttribute("slot", content.SlotName);
 
-                if (content.ContentString != null)
+                if (content.ContentHtml != null)
                 {
-                    slotTag.InnerHtml += content.ContentString;
+                    slotTag.InnerHtml += content.ContentHtml;
                 }
 
                 outerElement.InnerHtml += slotTag.ToString();
