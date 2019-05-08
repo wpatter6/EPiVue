@@ -1,7 +1,3 @@
-<p align="center">
-<img height="70" src="https://raw.githubusercontent.com/wpatter6/EPiVue/master/EPiVue.png" alt="">
-</p>
-
 # EPiVue
 
 Simple integration of Vue.js web components and EPiServer blocks as a NuGet package in .NET standard.
