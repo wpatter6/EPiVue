@@ -56,7 +56,6 @@ namespace EPiVueTests
         [TestMethod]
         public void RenderVueBlock()
         {
-            var html = TestUtilities.CreateHtmlHelper<VueBlock>();
             var block = new VueBlock()
             {
                 VueComponentName = "VueTest",
