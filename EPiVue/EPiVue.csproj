@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>EPiVue</RootNamespace>
     <Version>0.2.3</Version>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <NuspecFile>EPiVue.nuspec</NuspecFile>
   </PropertyGroup>
 
@@ -18,4 +18,8 @@
     </PackageReference>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="nuget pack EPiVue.csproj -OutputDirectory Outputs" />
+  </Target>
 </Project>

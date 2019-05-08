@@ -2,22 +2,31 @@
 <package>
   <metadata>
     <id>EPiVue</id>
-    <version>0.2.3</version>
+    <version>0.2.4</version>
     <authors>Will Patterson</authors>
     <!-- The NuGet team authored this package -->
     <owners>Will Patterson</owners>
     <!-- The NuGet team owns this package -->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Vue.js integration for EPiServer CMS</description>
+    <description>Vue.js integration for EPiServer CMS in .NET Standard</description>
+    <summary>Vue.js integration for EPiServer CMS in .NET Standard</summary>
     <tags>EPiServer Vue</tags>
     <projectUrl>https://github.com/wpatter6/EPiVue</projectUrl>
     <copyright>2019 Will Patterson</copyright>
     <license type="expression">MIT</license>
     <iconUrl>https://raw.githubusercontent.com/wpatter6/EPiVue/master/EPiVue.png</iconUrl>
+    <dependencies>
+      <dependency id="Microsoft.AspNet.Mvc" version="5.2.7" />
+      <dependency id="Microsoft.AspNetCore.Html.Abstractions" version="2.2.0" />
+      <dependency id="Newtonsoft.Json" version="11.0.2" />
+      <dependency id="System.Configuration.ConfigurationManager" version="4.5.0" />
+    </dependencies>
+    <repository type="git" url="https://github.com/wpatter6/EPiVue.git" />
   </metadata>
   <files>
       <!-- Include Assets as Content -->
-      <file src="Config/web.config.transform" target="Content" />
-      <file src="Config/app.config.transform" target="Content" />
+      <file src="Config\web.config.transform" target="Content" />
+      <file src="Config\app.config.transform" target="Content" />
+      <file src="bin\$configuration$\netstandard2.0\$id$.dll" target="lib\netstandard2.0" />
   </files>
 </package>
